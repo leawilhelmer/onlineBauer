@@ -1,23 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Nav from "./components/Nav/nav";
+import Profile from "./components/Account/Team";
+import Dashboard from "./components/Account/Unternehmen";
+// import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+// import SignUp from "./components/Forms/SignUp";
+// import axios from "axios";
+import axios from "axios";
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+// import mapboxgl from "mapbox-gl/dist/mapbox-gl";
+// mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 function App() {
+  // Set state for authentication using UserData
+  const [userData, setUserData] = useState({
+    user: undefined,
+    token: undefined
+  })
+
+  // Function to see if the user is logged in
+  const checkLoggedIn = async () => {
+    // Set token to the local storage AuthToken
+    let token = localStorage.getItem("auth-token");
+    // If no token, set up the spot in LocalStorage
+    if (token === null) {
+      localStorage.setItem("auth-token", "")
+      token = ""
+    } else {
+      try {
+        // If there is a token send the get request to get the user Data
+        const userRes = await axios.get("/api/login", {
+          headers: { "x-auth-token": token }
+        })
+        // then console log the results
+        console.log("user", userRes)
+        // set the user data to the token and the user information
+        setUserData({ token, user: userRes.data })
+      } catch (err) {
+        console.log("Must log in")
+      }
+    }
+
+  }
+  // use Effect to call the check logged in on the page load
+  useEffect(() => {
+    // console.log(userData)
+    checkLoggedIn()
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <Nav />
+          <Switch>
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/clusters" component={Clusters} />
+            {/* <Route path="/addevent" component={AddEvent} /> */}
+            <Route path="/editEvent" component={EditEvent} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/login" component={FormAuthentication} />
+            <Route path="/" component={Map} />
+          </Switch>
+        </UserContext.Provider>
+      </BrowserRouter>
     </div>
   );
 }
