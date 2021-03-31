@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./components/Nav/nav";
-import Profile from "./components/Account/Team";
-import Dashboard from "./components/Account/Unternehmen";
-// import { BrowserRouter, Route, Switch } from "react-router-dom";
-
-// import SignUp from "./components/Forms/SignUp";
-// import axios from "axios";
+import Profile from "./components/Forms/profile";
+import Team from "./components/Account/Team";
+import Unternehmen from "./components/Account/Unternehmen";
+import FormAuthenticate from "./components/Forms/formAuthenticate"
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import UserContext from "./Context/userContext";
 import axios from "axios";
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
-// import mapboxgl from "mapbox-gl/dist/mapbox-gl";
-// mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 function App() {
   // Set state for authentication using UserData
   const [userData, setUserData] = useState({
@@ -54,13 +51,12 @@ function App() {
         <UserContext.Provider value={{ userData, setUserData }}>
           <Nav />
           <Switch>
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/clusters" component={Clusters} />
-            {/* <Route path="/addevent" component={AddEvent} /> */}
-            <Route path="/editEvent" component={EditEvent} />
+            <Route path="/team" component={Team} />
             <Route path="/profile" component={Profile} />
-            <Route path="/login" component={FormAuthentication} />
-            <Route path="/" component={Map} />
+            {/* <Route path="/addevent" component={AddEvent} /> */}
+            <Route path="/unternehmen" component={Unternehmen} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/login" component={FormAuthenticate} />
           </Switch>
         </UserContext.Provider>
       </BrowserRouter>
