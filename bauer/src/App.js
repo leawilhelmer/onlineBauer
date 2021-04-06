@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./components/Nav/nav";
 import Profile from "./components/Forms/profile";
-import Team from "./components/Account/Team";
+import Team from "../src/components/Account/Team";
 import Unternehmen from "./components/Account/Unternehmen";
+import Home from "../src/components/Account/home";
 import FormAuthenticate from "./components/Forms/formAuthenticate"
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import UserContext from "./Context/userContext";
@@ -53,9 +54,8 @@ function App() {
           <Switch>
             <Route path="/team" component={Team} />
             <Route path="/profile" component={Profile} />
-            {/* <Route path="/addevent" component={AddEvent} /> */}
             <Route path="/unternehmen" component={Unternehmen} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/home" component={Home} />
             <Route path="/login" component={FormAuthenticate} />
           </Switch>
         </UserContext.Provider>

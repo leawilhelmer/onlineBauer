@@ -1,84 +1,44 @@
-// import React, { useState, useContext, useEffect } from "react";
-// import { Redirect, useHistory } from "react-router-dom";
-// import axios from "axios";
-// // import "../Forms/styles.css";
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import "./Login.css";
 
-// // Login component
-// const Login = () => {
-//   // Set the state for the login Details
-//   const [loginDetails, setLoginDetails] = useState({
-//     email: "",
-//     password: "",
-//   });
-//   // Set user data to the userContext
-  
-//   // use history to be able to redirect people
-//   const history = useHistory();
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-//   // Use effect to see if the user is logged in
-//   useEffect(() => {
-//     console.log(userData);
-//     // If the user is logged in, send them to the map
-//     if (userData.token) history.push("/");
-//   }, [userData.token, history]);
+  function validateForm() {
+    return email.length > 0 && password.length > 0;
+  }
 
-//   const onChange = (e) => {
-//     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
-//   };
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     try {
-//       // console.log(loginDetails, "FROM LOGIN.js");
-//       loginUser(loginDetails).then((res) => {
-//         // set the user data to the token, and the user info
-//         setUserData({
-//           token: res.data.token,
-//           user: res.data.user,
-//         });
-//         // Set the local storage token
-//         localStorage.setItem("auth-token", res.data.token);
-//         // After login, send to the map
-//         return history.push("/");
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   // Return the component
-//   return (
-//     <div className="login-form">
-//       <h2>Log In</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div className="form-group">
-//           <label>Email address</label>
-//           <br></br>
-//           <input
-//             onChange={onChange}
-//             type="email"
-//             name="email"
-//             className="form-control"
-//             id="email-input"
-//             placeholder="Email"
-//           ></input>
-//         </div>
-//         <div className="form-group">
-//           <label>Password</label>
-//           <br></br>
-//           <input
-//             onChange={onChange}
-//             type="password"
-//             name="password"
-//             className="form-control"
-//             id="password-input"
-//             placeholder="Password"
-//           ></input>
-//         </div>
-//         <button type="submit" className="btn btn-primary login">
-//           Login
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
+  function handleSubmit(event) {
+    event.preventDefault();
+  }
 
-// export default Login;
+  return (
+    <div className="Login">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group size="lg" controlId="email">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            autoFocus
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group size="lg" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+        <Button block size="lg" type="submit" disabled={!validateForm()}>
+          Login
+        </Button>
+      </Form>
+    </div>
+  );
+}
