@@ -1,0 +1,52 @@
+form.signup,
+form.login {
+  margin-top: 50px;
+}
+
+.signup-form,
+.login-form {
+  margin-top: 3%;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+.form-group {
+  margin-top: 30px;
+  text-align: left;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+label {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+button.login, .signup {
+  width: 100%;
+  margin-top: 20px;
+}
+
+p {
+  margin-top: 20px;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+
+div {
+  text-align: center;
+}
+
+button.sign-up {
+  width: 20%;
+  margin-left: 40%;
+  margin-right: 80%
+}
+
+input {
+  width: 97%;
+}
